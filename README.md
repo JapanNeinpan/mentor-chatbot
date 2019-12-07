@@ -1,4 +1,4 @@
-# mentor_chatbot
+# mentor-chatbot
 
 A mobile app that acts as an interface to interact with a chatbot.
 

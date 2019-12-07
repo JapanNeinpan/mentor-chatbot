@@ -11,6 +11,7 @@ class CommunityScreenState extends State<CommunityScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: EdgeInsets.all(25.0),
       child: Text("Community page works!"),
     );
   }

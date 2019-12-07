@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mentor_chatbot/screens/chatbot_screen.dart';
+import 'package:mentor_chatbot/screens/community_screen.dart';
+import 'package:mentor_chatbot/screens/inbox_screen.dart';
 
 void main() => runApp(MentorChatbot());
 
@@ -9,15 +11,6 @@ class MentorChatbot extends StatelessWidget {
     return MaterialApp(
       title: 'Mentor Chatbot',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
         primarySwatch: Colors.indigo,
       ),
       home: HomePage(title: 'Willkommen'),
@@ -34,25 +27,15 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final _screenOptions = [
+    ChatbotScreen(),
+    CommunityScreen(),
+    InboxScreen(),
+  ];
   int _selectedIndex = 0;
 
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Index 0: Home',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 1: Business',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 2: School',
-      style: optionStyle,
-    ),
-  ];
 
   void _onNavigationBarItemTapped(int index) {
     setState(() {
@@ -65,9 +48,10 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Mentor Chatbot'),
+        centerTitle: true,
       ),
       body: Center(
-        child: ChatScreen(),
+        child: _screenOptions[_selectedIndex],
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
@@ -77,7 +61,7 @@ class _HomePageState extends State<HomePage> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.group),
-            title: Text('Questions'),
+            title: Text('Community'),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.inbox),

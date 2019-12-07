@@ -32,6 +32,7 @@ class _HomePageState extends State<HomePage> {
     CommunityScreen(),
     InboxScreen(),
   ];
+
   int _selectedIndex = 0;
 
   static const TextStyle optionStyle =
@@ -51,7 +52,10 @@ class _HomePageState extends State<HomePage> {
         centerTitle: true,
       ),
       body: Center(
-        child: _screenOptions[_selectedIndex],
+        child: IndexedStack(
+          children: _screenOptions,
+          index: _selectedIndex,
+        ),
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[

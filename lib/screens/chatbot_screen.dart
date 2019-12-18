@@ -10,29 +10,57 @@ class ChatbotScreen extends StatefulWidget {
 
 class ChatbotScreenState extends State<ChatbotScreen>
     with TickerProviderStateMixin {
-  final List<ChatMessage> _messages = <ChatMessage>[];
+  final List<ChatMessage> _messages = <ChatMessage>[
+    new ChatMessage(
+      text: "Ja bitte ..",
+      isSent: true,
+    ),
+    new ChatMessage(
+      text: "Ich kann ne ganze Menge, ich kann dir einen Witz erzählen",
+      isSent: false,
+    ),
+    new ChatMessage(
+      text: "Was kannst du alles?",
+      isSent: true,
+    ),
+    new ChatMessage(
+      text: "Hallo wie kann ich dir helfen?",
+      isSent: false,
+    ),
+    new ChatMessage(
+      text: "Hallo",
+      isSent: true,
+    ),
+  ];
   final TextEditingController _textController = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return new Column(
-      children: <Widget>[
-        new Flexible(
-          child: new ListView.builder(
-            padding: new EdgeInsets.all(8.0),
-            reverse: true,
-            itemBuilder: (_, int index) => _messages[index],
-            itemCount: _messages.length,
+    return Container(
+      decoration: BoxDecoration(
+        gradient: RadialGradient(
+          colors: [Colors.lightBlueAccent, Colors.blueAccent],
+        ),
+      ),
+      child: new Column(
+        children: <Widget>[
+          new Flexible(
+            child: new ListView.builder(
+              padding: new EdgeInsets.all(8.0),
+              reverse: true,
+              itemBuilder: (_, int index) => _messages[index],
+              itemCount: _messages.length,
+            ),
           ),
-        ),
-        new Container(
-          child: _buildTextComposer(),
-          margin: EdgeInsets.all(5.0),
-          decoration: new BoxDecoration(
-              color: Theme.of(context).focusColor,
-              borderRadius: BorderRadius.circular(25.0)),
-        ),
-      ],
+          new Container(
+            child: _buildTextComposer(),
+            margin: EdgeInsets.all(5.0),
+            decoration: new BoxDecoration(
+                color: Theme.of(context).focusColor,
+                borderRadius: BorderRadius.circular(25.0)),
+          ),
+        ],
+      ),
     );
   }
 
@@ -67,6 +95,7 @@ class ChatbotScreenState extends State<ChatbotScreen>
     _textController.clear();
     ChatMessage message = new ChatMessage(
       text: text,
+      isSent: true,
       animationController: new AnimationController(
         duration: new Duration(milliseconds: 200),
         vsync: this,

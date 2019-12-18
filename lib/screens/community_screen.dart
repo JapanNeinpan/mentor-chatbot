@@ -10,22 +10,27 @@ class CommunityScreen extends StatefulWidget {
 
 class CommunityScreenState extends State<CommunityScreen> {
   final List<QuestionCard> _questions = <QuestionCard>[
-    new QuestionCard(),
-    new QuestionCard(),
-    new QuestionCard(),
-    new QuestionCard(),
-    new QuestionCard(),
-    new QuestionCard(),
-    new QuestionCard(),
-    new QuestionCard(),
-    new QuestionCard(),
-    new QuestionCard(),
-    new QuestionCard(),
-    new QuestionCard(),
-    new QuestionCard(),
-    new QuestionCard(),
-    new QuestionCard(),
-    new QuestionCard(),
+    new QuestionCard(
+      question: loremIpsum,
+    ),
+    new QuestionCard(
+      question: loremIpsum,
+    ),
+    new QuestionCard(
+      question: loremIpsum,
+    ),
+    new QuestionCard(
+      question: loremIpsum,
+    ),
+    new QuestionCard(
+      question: loremIpsum,
+    ),
+    new QuestionCard(
+      question: loremIpsum,
+    ),
+    new QuestionCard(
+      question: loremIpsum,
+    ),
   ];
 
   @override
@@ -38,3 +43,6 @@ class CommunityScreenState extends State<CommunityScreen> {
     );
   }
 }
+
+var loremIpsum =
+    """Lorem ipsum dolor sit amet, consetetur sadipscing elitr,sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,sed diam voluptua.""";

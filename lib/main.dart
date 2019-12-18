@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:mentor_chatbot/screens/chatbot_screen.dart';
 import 'package:mentor_chatbot/screens/community_screen.dart';
@@ -35,8 +37,10 @@ class _HomePageState extends State<HomePage> {
 
   int _selectedIndex = 0;
 
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+  static const TextStyle optionStyle = TextStyle(
+    fontSize: 30,
+    fontWeight: FontWeight.bold,
+  );
 
   void _onNavigationBarItemTapped(int index) {
     setState(() {
@@ -50,6 +54,12 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: const Text('Mentor Chatbot'),
         centerTitle: true,
+        actions: <Widget>[
+          new IconButton(
+            icon: new Icon(Icons.settings),
+            onPressed: () => log("Please make me do something"),
+          ),
+        ],
       ),
       body: IndexedStack(
         children: _screenOptions,

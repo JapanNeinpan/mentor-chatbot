@@ -51,11 +51,9 @@ class _HomePageState extends State<HomePage> {
         title: const Text('Mentor Chatbot'),
         centerTitle: true,
       ),
-      body: Center(
-        child: IndexedStack(
-          children: _screenOptions,
-          index: _selectedIndex,
-        ),
+      body: IndexedStack(
+        children: _screenOptions,
+        index: _selectedIndex,
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[

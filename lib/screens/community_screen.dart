@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mentor_chatbot/widgets/question_card.dart';
 
 class CommunityScreen extends StatefulWidget {
   @override
@@ -8,11 +9,32 @@ class CommunityScreen extends StatefulWidget {
 }
 
 class CommunityScreenState extends State<CommunityScreen> {
+  final List<QuestionCard> _questions = <QuestionCard>[
+    new QuestionCard(),
+    new QuestionCard(),
+    new QuestionCard(),
+    new QuestionCard(),
+    new QuestionCard(),
+    new QuestionCard(),
+    new QuestionCard(),
+    new QuestionCard(),
+    new QuestionCard(),
+    new QuestionCard(),
+    new QuestionCard(),
+    new QuestionCard(),
+    new QuestionCard(),
+    new QuestionCard(),
+    new QuestionCard(),
+    new QuestionCard(),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(25.0),
-      child: Text("Community page works!"),
+      child: new ListView.builder(
+        itemBuilder: (_, index) => _questions[index],
+        itemCount: _questions.length,
+      ),
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mentor_chatbot/widgets/inbox_message.dart';
 
 class InboxScreen extends StatefulWidget {
   @override
@@ -8,11 +9,20 @@ class InboxScreen extends StatefulWidget {
 }
 
 class InboxScreenState extends State<InboxScreen> {
+  final List<InboxMessage> _inbox = <InboxMessage>[
+    new InboxMessage(),
+    new InboxMessage(),
+    new InboxMessage(),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(25.0),
-      child: Text("Inbox page works!"),
+      color: Theme.of(context).backgroundColor,
+      child: new ListView.builder(
+        itemBuilder: (_, index) => _inbox[index],
+        itemCount: _inbox.length,
+      ),
     );
   }
 }

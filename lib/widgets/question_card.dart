@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class QuestionCard extends StatefulWidget {
@@ -9,7 +8,8 @@ class QuestionCard extends StatefulWidget {
 }
 
 class QuestionCardState extends State<QuestionCard> {
-  int hotness = 0;
+  int hotness = 123;
+  List<bool> _selections = [false];
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -19,25 +19,31 @@ class QuestionCardState extends State<QuestionCard> {
         borderRadius: BorderRadius.circular(25.0),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(6.0),
+        padding: const EdgeInsets.all(3.0),
         child: ListTile(
           title: new Text("Fragen Titel"),
           subtitle: new Text(widget.question),
-          isThreeLine: true,
           trailing: new Column(
             children: <Widget>[
-              new Text("123"),
-              new Icon(Icons.whatshot),
+              new Text(hotness.toString()),
+              new ToggleButtons(
+                children: <Widget>[
+                  Icon(Icons.whatshot),
+                ],
+                isSelected: _selections,
+                onPressed: (int index) {
+                  setState(() {
+                    _selections[index] = !_selections[index];
+                    _selections[index] ? hotness++ : --hotness;
+                  });
+                },
+                renderBorder: false,
+                fillColor: Colors.orangeAccent,
+              ),
             ],
           ),
         ),
       ),
     );
-  }
-
-  void incrHotness() {
-    setState(() {
-      this.hotness = this.hotness + 1;
-    });
   }
 }

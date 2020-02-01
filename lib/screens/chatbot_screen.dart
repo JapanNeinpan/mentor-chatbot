@@ -37,18 +37,18 @@ class ChatbotScreenState extends State<ChatbotScreen>
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        gradient: RadialGradient(
-          colors: [Colors.lightBlueAccent, Colors.blueAccent],
-        ),
-      ),
+      decoration: BoxDecoration(color: Theme.of(context).backgroundColor),
       child: new Column(
         children: <Widget>[
           new Flexible(
-            child: new ListView.builder(
+            child: new ListView.separated(
               padding: new EdgeInsets.all(8.0),
               reverse: true,
               itemBuilder: (_, int index) => _messages[index],
+              separatorBuilder: (_, index) => Divider(
+                height: 5.0,
+                color: new Color.fromRGBO(255, 255, 255, 0.0),
+              ),
               itemCount: _messages.length,
             ),
           ),
@@ -56,8 +56,9 @@ class ChatbotScreenState extends State<ChatbotScreen>
             child: _buildTextComposer(),
             margin: EdgeInsets.all(5.0),
             decoration: new BoxDecoration(
-                color: Theme.of(context).focusColor,
-                borderRadius: BorderRadius.circular(25.0)),
+              color: Theme.of(context).canvasColor,
+              borderRadius: BorderRadius.circular(25.0),
+            ),
           ),
         ],
       ),

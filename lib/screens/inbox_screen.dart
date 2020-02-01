@@ -19,9 +19,14 @@ class InboxScreenState extends State<InboxScreen> {
   Widget build(BuildContext context) {
     return Container(
       color: Theme.of(context).backgroundColor,
-      child: new ListView.builder(
+      child: new ListView.separated(
         itemBuilder: (_, index) => _inbox[index],
+        separatorBuilder: (_, index) => Divider(
+          height: 5.0,
+          color: new Color.fromRGBO(255, 255, 255, 0.0),
+        ),
         itemCount: _inbox.length,
+        padding: EdgeInsets.all(5.0),
       ),
     );
   }

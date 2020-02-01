@@ -13,35 +13,61 @@ class QuestionCardState extends State<QuestionCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(5.0),
-      decoration: new BoxDecoration(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(5),
         color: Colors.orangeAccent,
-        borderRadius: BorderRadius.circular(25.0),
       ),
-      child: Padding(
-        padding: const EdgeInsets.all(3.0),
-        child: ListTile(
-          title: new Text("Fragen Titel"),
-          subtitle: new Text(widget.question),
-          trailing: new Column(
+      child: ListTileTheme(
+        contentPadding: EdgeInsets.all(0),
+        child: ExpansionTile(
+          backgroundColor: new Color.fromRGBO(255, 255, 255, 0.0),
+          title: Text(
+            widget.question,
+            style: TextStyle(fontWeight: FontWeight.bold),
+            overflow: TextOverflow.ellipsis,
+            maxLines: 5,
+          ),
+          trailing: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              new Text(hotness.toString()),
-              new ToggleButtons(
-                children: <Widget>[
-                  Icon(Icons.whatshot),
-                ],
+              Text(hotness.toString()),
+              ToggleButtons(
+                renderBorder: false,
+                borderRadius: BorderRadius.circular(100),
+                constraints: BoxConstraints.tight(Size(36, 36)),
                 isSelected: _selections,
+                children: <Widget>[
+                  Icon(
+                    Icons.whatshot,
+                  ),
+                ],
                 onPressed: (int index) {
                   setState(() {
                     _selections[index] = !_selections[index];
                     _selections[index] ? hotness++ : --hotness;
                   });
                 },
-                renderBorder: false,
-                fillColor: Colors.orangeAccent,
               ),
             ],
           ),
+          children: <Widget>[
+            Container(
+              child: Column(
+                children: <Widget>[
+                  Row(
+                    children: <Widget>[
+                      Text("Details zu der Frage"),
+                    ],
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Icon(Icons.reply),
+                    ],
+                  ),
+                ],
+              ),
+            )
+          ],
         ),
       ),
     );

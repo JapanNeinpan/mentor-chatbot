@@ -30,6 +30,7 @@ class CommunityScreenState extends State<CommunityScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: Theme.of(context).backgroundColor,
       child: new ListView.separated(
         itemBuilder: (_, index) => _questions[index],
         separatorBuilder: (_, index) => Divider(

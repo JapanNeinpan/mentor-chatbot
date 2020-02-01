@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:mentor_chatbot/screens/chatbot_screen.dart';
 import 'package:mentor_chatbot/screens/community_screen.dart';
 import 'package:mentor_chatbot/screens/inbox_screen.dart';
+import 'package:mentor_chatbot/screens/settings_screen.dart';
 
 void main() => runApp(MentorChatbot());
 
@@ -13,29 +14,29 @@ class MentorChatbot extends StatelessWidget {
     return MaterialApp(
       title: 'Mentor Chatbot',
       theme: ThemeData(
-        primarySwatch: Colors.indigo,
+        primarySwatch: Colors.deepPurple,
       ),
-      home: HomePage(title: 'Willkommen'),
+      home: MainPage(title: 'Willkommen'),
     );
   }
 }
 
-class HomePage extends StatefulWidget {
-  HomePage({Key key, this.title}) : super(key: key);
+class MainPage extends StatefulWidget {
+  MainPage({Key key, this.title}) : super(key: key);
   final String title;
 
   @override
-  _HomePageState createState() => _HomePageState();
+  _MainPageState createState() => _MainPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _MainPageState extends State<MainPage> {
+  int _selectedIndex = 0;
+
   final _screenOptions = [
     ChatbotScreen(),
     CommunityScreen(),
     InboxScreen(),
   ];
-
-  int _selectedIndex = 0;
 
   static const TextStyle optionStyle = TextStyle(
     fontSize: 30,
@@ -48,6 +49,13 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  void _pushSettings() {
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (BuildContext context) {
+      return SettingsScreen();
+    }));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,7 +65,7 @@ class _HomePageState extends State<HomePage> {
         actions: <Widget>[
           new IconButton(
             icon: new Icon(Icons.settings),
-            onPressed: () => log("Please make me do something"),
+            onPressed: _pushSettings,
           ),
         ],
       ),

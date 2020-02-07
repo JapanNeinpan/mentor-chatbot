@@ -24,7 +24,7 @@ class QuestionCardState extends State<QuestionCard> {
           backgroundColor: new Color.fromRGBO(255, 255, 255, 0.0),
           title: Text(
             widget.question,
-            style: TextStyle(fontWeight: FontWeight.bold),
+//            style: TextStyle(fontWeight: FontWeight.bold),
             overflow: TextOverflow.ellipsis,
             maxLines: 5,
           ),

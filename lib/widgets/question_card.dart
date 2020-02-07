@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 class QuestionCard extends StatefulWidget {
-  QuestionCard({this.question});
+  QuestionCard({this.question, this.questionDetails});
   final String question;
+  final String questionDetails;
   @override
   State<StatefulWidget> createState() => new QuestionCardState();
 }
@@ -15,10 +16,10 @@ class QuestionCardState extends State<QuestionCard> {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5),
-        color: Colors.orangeAccent,
+        color: Theme.of(context).primaryColorLight,
       ),
       child: ListTileTheme(
-        contentPadding: EdgeInsets.all(0),
+        contentPadding: EdgeInsets.all(5),
         child: ExpansionTile(
           backgroundColor: new Color.fromRGBO(255, 255, 255, 0.0),
           title: Text(
@@ -29,34 +30,39 @@ class QuestionCardState extends State<QuestionCard> {
           ),
           trailing: Column(
             mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
             children: <Widget>[
-              Text(hotness.toString()),
-              ToggleButtons(
-                renderBorder: false,
-                borderRadius: BorderRadius.circular(100),
-                constraints: BoxConstraints.tight(Size(36, 36)),
-                isSelected: _selections,
-                children: <Widget>[
-                  Icon(
-                    Icons.whatshot,
-                  ),
-                ],
-                onPressed: (int index) {
-                  setState(() {
-                    _selections[index] = !_selections[index];
-                    _selections[index] ? hotness++ : --hotness;
-                  });
-                },
+//              Text(hotness.toString()),
+              IconButton(
+                icon: Icon(Icons.whatshot),
               ),
+//              ToggleButtons(
+//                renderBorder: false,
+//                borderRadius: BorderRadius.circular(100),
+//                constraints: BoxConstraints.tight(Size(36, 36)),
+//                isSelected: _selections,
+//                children: <Widget>[
+//                  Icon(
+//                    Icons.whatshot,
+//                  ),
+//                ],
+//                onPressed: (int index) {
+//                  setState(() {
+//                    _selections[index] = !_selections[index];
+//                    _selections[index] ? hotness++ : --hotness;
+//                  });
+//                },
+//              ),
             ],
           ),
           children: <Widget>[
             Container(
+              padding: EdgeInsets.all(5),
               child: Column(
                 children: <Widget>[
                   Row(
                     children: <Widget>[
-                      Text("Details zu der Frage"),
+                      Text(widget.questionDetails),
                     ],
                   ),
                   Row(

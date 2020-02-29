@@ -35,6 +35,7 @@ class QuestionCardState extends State<QuestionCard> {
 //              Text(hotness.toString()),
               IconButton(
                 icon: Icon(Icons.whatshot),
+                onPressed: () => {},
               ),
 //              ToggleButtons(
 //                renderBorder: false,

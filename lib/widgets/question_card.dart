@@ -10,7 +10,7 @@ class QuestionCard extends StatefulWidget {
 
 class QuestionCardState extends State<QuestionCard> {
   int hotness = 123;
-  List<bool> _selections = [false];
+//  List<bool> _selections = [false];
   @override
   Widget build(BuildContext context) {
     return Container(

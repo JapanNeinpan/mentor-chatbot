@@ -60,12 +60,36 @@ class _MainPageState extends State<MainPage> {
       appBar: AppBar(
         title: const Text('Mentor Chatbot'),
         centerTitle: true,
+//        leading: Icon(Icons.account_circle),
         actions: <Widget>[
           new IconButton(
             icon: new Icon(Icons.settings),
             onPressed: _pushSettings,
           ),
         ],
+      ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: const <Widget>[
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.deepPurple,
+              ),
+              child: Text(
+                'Profile',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                ),
+              ),
+            ),
+            ListTile(
+              leading: Icon(Icons.account_circle),
+              title: Text('Profile'),
+            ),
+          ],
+        ),
       ),
       body: IndexedStack(
         children: _screenOptions,

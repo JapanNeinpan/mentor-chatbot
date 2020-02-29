@@ -42,7 +42,7 @@ class ChatbotScreenState extends State<ChatbotScreen>
         children: <Widget>[
           new Flexible(
             child: new ListView.separated(
-              padding: new EdgeInsets.all(8.0),
+              padding: new EdgeInsets.all(5.0),
               reverse: true,
               itemBuilder: (_, int index) => _messages[index],
               separatorBuilder: (_, index) => Divider(
@@ -57,7 +57,7 @@ class ChatbotScreenState extends State<ChatbotScreen>
             margin: EdgeInsets.all(5.0),
             decoration: new BoxDecoration(
               color: Theme.of(context).canvasColor,
-              borderRadius: BorderRadius.circular(25.0),
+              borderRadius: BorderRadius.circular(10.0),
             ),
           ),
         ],
@@ -69,7 +69,7 @@ class ChatbotScreenState extends State<ChatbotScreen>
     return new IconTheme(
       data: new IconThemeData(color: Theme.of(context).accentColor),
       child: new Container(
-        margin: const EdgeInsets.symmetric(horizontal: 8.0),
+        margin: const EdgeInsets.only(left: 12.0, right: 8.0),
         child: new Row(
           children: <Widget>[
             new Flexible(
@@ -81,7 +81,6 @@ class ChatbotScreenState extends State<ChatbotScreen>
               ),
             ),
             new Container(
-              margin: new EdgeInsets.symmetric(horizontal: 4.0),
               child: new IconButton(
                   icon: new Icon(Icons.send),
                   onPressed: () => _handleSubmitted(_textController.text)),

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:mentor_chatbot/screens/chatbot_screen.dart';
 import 'package:mentor_chatbot/screens/community_screen.dart';

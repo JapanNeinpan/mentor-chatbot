@@ -11,8 +11,7 @@ class CommunityScreen extends StatefulWidget {
 class CommunityScreenState extends State<CommunityScreen> {
   final List<QuestionCard> _questions = <QuestionCard>[
     new QuestionCard(
-      question:
-          "Wo ist die Mensa? Wo ist die Mensa? Wo ist die Mensa? Wo ist die Mensa? Wo ist die Mensa? Wo ist die Mensa? Wo ist die Mensa? Wo ist die Mensa? Wo ist die Mensa? Wo ist die Mensa? Wo ist die Mensa?",
+      question: "Wo ist die Mensa?",
       questionDetails: "Ich weiß nicht wo lang",
     ),
   ];

@@ -1,5 +1,9 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:mentor_chatbot/widgets/chat_message.dart';
+import 'package:http/http.dart' as http;
 
 class ChatbotScreen extends StatefulWidget {
   @override
@@ -11,10 +15,6 @@ class ChatbotScreen extends StatefulWidget {
 class ChatbotScreenState extends State<ChatbotScreen>
     with TickerProviderStateMixin {
   final List<ChatMessage> _messages = <ChatMessage>[
-    new ChatMessage(
-      text: "Ja bitte ..",
-      isSent: true,
-    ),
     new ChatMessage(
       text: "Ich kann ne ganze Menge, ich kann dir einen Witz erzählen",
       isSent: false,
@@ -105,6 +105,17 @@ class ChatbotScreenState extends State<ChatbotScreen>
       _messages.insert(0, message);
     });
     message.animationController.forward();
+    fetchBotResponse(text);
+  }
+
+  Future<void> fetchBotResponse(String text) async {
+    var headers = {HttpHeaders.contentTypeHeader: ContentType.json.toString()};
+    var response = await http.post(
+        'https://c07e4106.ngrok.io/webhooks/rest/webhook',
+        headers: headers,
+        body: jsonEncode({"sender": "Rasa", "message": "$text"}));
+
+    _handleSubmitted(jsonDecode(response.body)[0]["text"]);
   }
 
   @override

@@ -11,8 +11,6 @@ class InboxScreen extends StatefulWidget {
 class InboxScreenState extends State<InboxScreen> {
   final List<InboxMessage> _inbox = <InboxMessage>[
     new InboxMessage(),
-    new InboxMessage(),
-    new InboxMessage(),
   ];
 
   @override

@@ -12,7 +12,7 @@ class InboxMessage extends StatelessWidget {
         title: Text("Tallo"),
         subtitle: Text("Deine Frage die du mal gestellt hast"),
         trailing: CircleAvatar(
-          child: Center(child: Text("5")),
+          child: Center(child: Text("2")),
           maxRadius: 15,
         ),
       ),

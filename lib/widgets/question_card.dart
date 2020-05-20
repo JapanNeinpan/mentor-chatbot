@@ -15,8 +15,8 @@ class QuestionCardState extends State<QuestionCard> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(5),
-        color: Theme.of(context).primaryColorLight,
+        borderRadius: BorderRadius.all(Radius.circular(5)),
+        color: Theme.of(context).cardColor,
       ),
       child: ListTileTheme(
         contentPadding: EdgeInsets.all(5),

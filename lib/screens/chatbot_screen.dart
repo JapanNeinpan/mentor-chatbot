@@ -59,6 +59,8 @@ class ChatbotScreenState extends State<ChatbotScreen>
           children: <Widget>[
             new Flexible(
               child: new TextField(
+                minLines: 1,
+                maxLines: 6,
                 controller: _textController,
                 onSubmitted: _handleSubmitted,
                 decoration:

@@ -9,8 +9,8 @@ class InboxMessage extends StatelessWidget {
         borderRadius: BorderRadius.all(Radius.circular(5)),
       ),
       child: new ListTile(
-        title: Text("Tallo"),
-        subtitle: Text("Deine Frage die du mal gestellt hast"),
+        title: Text("Wie melde ich mich für Klausuren an?"),
+        subtitle: Text("2 Antworten auf die Frage"),
         trailing: CircleAvatar(
           child: Center(child: Text("2")),
           maxRadius: 15,

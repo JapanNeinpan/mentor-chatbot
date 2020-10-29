@@ -9,9 +9,8 @@ Future<List<QuestionCard>> fetchQuestions() async {
       await http.get('https://mentor-chatbot.appspot.com/questions');
   if (response.statusCode == 200) {
     var questions = (json.decode(response.body) as List)
-        .map((question) => new Question.fromJson(question))
-        .map((question2) =>
-            new QuestionCard(question: question2.question, questionDetails: ""))
+        .map((questionJson) => new Question.fromJson(questionJson))
+        .map((question) => new QuestionCard(question: question))
         .toList();
     return questions;
   } else {

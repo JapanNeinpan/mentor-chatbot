@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:mentor_chatbot/services/rest.api.service.dart';
 import 'package:mentor_chatbot/widgets/question_card.dart';
@@ -23,7 +25,7 @@ class CommunityScreenState extends State<CommunityScreen> {
     return Container(
       color: Theme.of(context).backgroundColor,
       child: RefreshIndicator(
-        onRefresh: () => _questions = fetchQuestions(),
+        onRefresh: _handleRefresh,
         child: FutureBuilder(
             future: _questions,
             builder: (context, snapshot) {
@@ -42,9 +44,20 @@ class CommunityScreenState extends State<CommunityScreen> {
               } else if (snapshot.hasError) {
                 return Text("${snapshot.error}");
               }
-              return CircularProgressIndicator();
+              return Center(child: CircularProgressIndicator());
             }),
       ),
     );
+  }
+
+  Future<Null> _handleRefresh() async {
+    Completer<Null> completer = new Completer<Null>();
+
+    setState(() {
+      _questions = fetchQuestions();
+    });
+
+    completer.complete();
+    return completer.future;
   }
 }

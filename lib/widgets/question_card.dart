@@ -1,79 +1,50 @@
 import 'package:flutter/material.dart';
+import 'package:mentor_chatbot/models/question.model.dart';
+import 'package:number_display/number_display.dart';
 
 class QuestionCard extends StatefulWidget {
-  QuestionCard({this.question, this.questionDetails});
-  final String question;
-  final String questionDetails;
+  QuestionCard({this.question});
+  final Question question;
   @override
   State<StatefulWidget> createState() => new QuestionCardState();
 }
 
 class QuestionCardState extends State<QuestionCard> {
-  int hotness = 123;
-//  List<bool> _selections = [false];
+  final display = createDisplay(
+    length: 3,
+    decimal: 2,
+  );
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(5)),
-        color: Theme.of(context).cardColor,
-      ),
-      child: ListTileTheme(
-        contentPadding: EdgeInsets.all(5),
-        child: ExpansionTile(
-          backgroundColor: new Color.fromRGBO(255, 255, 255, 0.0),
-          title: Text(
-            widget.question,
-//            style: TextStyle(fontWeight: FontWeight.bold),
-            overflow: TextOverflow.ellipsis,
-            maxLines: 5,
-          ),
-          trailing: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.max,
-            children: <Widget>[
-//              Text(hotness.toString()),
-              IconButton(
-                icon: Icon(Icons.whatshot),
-                onPressed: () => {},
-              ),
-//              ToggleButtons(
-//                renderBorder: false,
-//                borderRadius: BorderRadius.circular(100),
-//                constraints: BoxConstraints.tight(Size(36, 36)),
-//                isSelected: _selections,
-//                children: <Widget>[
-//                  Icon(
-//                    Icons.whatshot,
-//                  ),
-//                ],
-//                onPressed: (int index) {
-//                  setState(() {
-//                    _selections[index] = !_selections[index];
-//                    _selections[index] ? hotness++ : --hotness;
-//                  });
-//                },
-//              ),
-            ],
-          ),
+    return Card(
+      elevation: 5,
+      child: Container(
+        padding: EdgeInsets.fromLTRB(15, 15, 15, 5),
+        child: Column(
           children: <Widget>[
-            Container(
-              padding: EdgeInsets.all(5),
-              child: Column(
+            Row(
+              children: <Widget>[
+                Expanded(
+                    child: Text(this.widget.question.questions[0]["body"])),
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   Row(
                     children: <Widget>[
-                      Text(widget.questionDetails),
+                      Text(display(this.widget.question.hotness)),
+                      Icon(Icons.whatshot),
                     ],
+                    mainAxisSize: MainAxisSize.min,
                   ),
-                  Row(
-                    children: <Widget>[
-                      Icon(Icons.reply),
-                    ],
-                  ),
+                  Icon(Icons.reply),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),

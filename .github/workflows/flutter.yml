@@ -4,6 +4,7 @@ on: [push]
 
 jobs:
   build:
+    name: Check Code Quality and build
 
     runs-on: ubuntu-18.04
 

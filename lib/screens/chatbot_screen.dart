@@ -1,4 +1,9 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_socket_io/flutter_socket_io.dart';
+import 'package:http/http.dart' as http;
 import 'package:mentor_chatbot/widgets/chat_message.dart';
 
 class ChatbotScreen extends StatefulWidget {
@@ -10,28 +15,8 @@ class ChatbotScreen extends StatefulWidget {
 
 class ChatbotScreenState extends State<ChatbotScreen>
     with TickerProviderStateMixin {
-  final List<ChatMessage> _messages = <ChatMessage>[
-    new ChatMessage(
-      text: "Ja bitte ..",
-      isSent: true,
-    ),
-    new ChatMessage(
-      text: "Ich kann ne ganze Menge, ich kann dir einen Witz erzählen",
-      isSent: false,
-    ),
-    new ChatMessage(
-      text: "Was kannst du alles?",
-      isSent: true,
-    ),
-    new ChatMessage(
-      text: "Hallo wie kann ich dir helfen?",
-      isSent: false,
-    ),
-    new ChatMessage(
-      text: "Hallo",
-      isSent: true,
-    ),
-  ];
+  SocketIO socketIO;
+  final List<ChatMessage> _messages = <ChatMessage>[];
   final TextEditingController _textController = new TextEditingController();
 
   @override
@@ -74,6 +59,8 @@ class ChatbotScreenState extends State<ChatbotScreen>
           children: <Widget>[
             new Flexible(
               child: new TextField(
+                minLines: 1,
+                maxLines: 6,
                 controller: _textController,
                 onSubmitted: _handleSubmitted,
                 decoration:
@@ -83,7 +70,11 @@ class ChatbotScreenState extends State<ChatbotScreen>
             new Container(
               child: new IconButton(
                   icon: new Icon(Icons.send),
-                  onPressed: () => _handleSubmitted(_textController.text)),
+                  onPressed: () {
+                    var text = _textController.text;
+                    _handleSubmitted(text);
+                    fetchBotResponse(text);
+                  }),
             ),
           ],
         ),
@@ -92,10 +83,14 @@ class ChatbotScreenState extends State<ChatbotScreen>
   }
 
   void _handleSubmitted(String text) {
+    _pushMessageBubble(text, true);
+  }
+
+  void _pushMessageBubble(String text, bool isSent) {
     _textController.clear();
     ChatMessage message = new ChatMessage(
       text: text,
-      isSent: true,
+      isSent: isSent,
       animationController: new AnimationController(
         duration: new Duration(milliseconds: 200),
         vsync: this,
@@ -105,6 +100,23 @@ class ChatbotScreenState extends State<ChatbotScreen>
       _messages.insert(0, message);
     });
     message.animationController.forward();
+  }
+
+  Future<void> fetchBotResponse(String text) async {
+    var headers = {HttpHeaders.contentTypeHeader: ContentType.json.toString()};
+    final response =
+        await http.post("http://mentor-chatbot.me/core/webhooks/rest/webhook",
+            // TODO move this url to global config
+            headers: headers,
+            body: jsonEncode({"sender": "Mobile", "message": "$text"}));
+    if (response.statusCode == 200) {
+      var botResponses = jsonDecode(response.body);
+      for (var botResponse in botResponses) {
+        _pushMessageBubble(botResponse["text"], false);
+      }
+    } else {
+      throw Exception('Failed to fetch bot response');
+    }
   }
 
   @override

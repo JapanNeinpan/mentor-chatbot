@@ -9,12 +9,20 @@ void main() => runApp(MentorChatbot());
 class MentorChatbot extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Mentor Chatbot',
-      theme: ThemeData(
-        primarySwatch: Colors.deepPurple,
+    return GestureDetector(
+      onTap: () {
+        FocusScopeNode currentFocus = FocusScope.of(context);
+        if (!currentFocus.hasPrimaryFocus) {
+          currentFocus.unfocus();
+        }
+      },
+      child: MaterialApp(
+        title: 'Mentor Chatbot',
+        theme: ThemeData(
+          primarySwatch: Colors.deepPurple,
+        ),
+        home: MainPage(title: 'Willkommen'),
       ),
-      home: MainPage(title: 'Willkommen'),
     );
   }
 }
@@ -68,29 +76,29 @@ class _MainPageState extends State<MainPage> {
           ),
         ],
       ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: const <Widget>[
-            DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.deepPurple,
-              ),
-              child: Text(
-                'Profile',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
-                ),
-              ),
-            ),
-            ListTile(
-              leading: Icon(Icons.account_circle),
-              title: Text('Profile'),
-            ),
-          ],
-        ),
-      ),
+      // drawer: Drawer(
+      //   child: ListView(
+      //     padding: EdgeInsets.zero,
+      //     children: const <Widget>[
+      //       DrawerHeader(
+      //         decoration: BoxDecoration(
+      //           color: Colors.deepPurple,
+      //         ),
+      //         child: Text(
+      //           'Profile',
+      //           style: TextStyle(
+      //             color: Colors.white,
+      //             fontSize: 24,
+      //           ),
+      //         ),
+      //       ),
+      //       ListTile(
+      //         leading: Icon(Icons.account_circle),
+      //         title: Text('Profile'),
+      //       ),
+      //     ],
+      //   ),
+      // ),
       body: IndexedStack(
         children: _screenOptions,
         index: _selectedIndex,

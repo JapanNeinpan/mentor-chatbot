@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:mentor_chatbot/services/rest.api.service.dart';
 import 'package:mentor_chatbot/widgets/question_card.dart';
 
 class CommunityScreen extends StatefulWidget {
@@ -9,30 +12,52 @@ class CommunityScreen extends StatefulWidget {
 }
 
 class CommunityScreenState extends State<CommunityScreen> {
-  final List<QuestionCard> _questions = <QuestionCard>[
-    new QuestionCard(
-      question:
-          "Wo ist die Mensa? Wo ist die Mensa? Wo ist die Mensa? Wo ist die Mensa? Wo ist die Mensa? Wo ist die Mensa? Wo ist die Mensa? Wo ist die Mensa? Wo ist die Mensa? Wo ist die Mensa? Wo ist die Mensa?",
-      questionDetails: "Ich weiß nicht wo lang",
-    ),
-  ];
+  Future<List<QuestionCard>> _questions;
+
+  @override
+  void initState() {
+    super.initState();
+    _questions = fetchQuestions();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
       color: Theme.of(context).backgroundColor,
-      child: new ListView.separated(
-        itemBuilder: (_, index) => _questions[index],
-        separatorBuilder: (_, index) => Divider(
-          height: 5.0,
-          color: new Color.fromRGBO(255, 255, 255, 0.0),
-        ),
-        itemCount: _questions.length,
-        padding: EdgeInsets.all(5.0),
+      child: RefreshIndicator(
+        onRefresh: _handleRefresh,
+        child: FutureBuilder(
+            future: _questions,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return new ListView.separated(
+                  itemBuilder: (_, index) {
+                    return snapshot.data[index];
+                  },
+                  separatorBuilder: (_, index) => Divider(
+                    height: 5.0,
+                    color: Colors.transparent,
+                  ),
+                  itemCount: snapshot.data.length,
+                  padding: EdgeInsets.all(5.0),
+                );
+              } else if (snapshot.hasError) {
+                return Text("${snapshot.error}");
+              }
+              return Center(child: CircularProgressIndicator());
+            }),
       ),
     );
   }
-}
 
-var loremIpsum =
-    """Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.""";
+  Future<Null> _handleRefresh() async {
+    Completer<Null> completer = new Completer<Null>();
+
+    setState(() {
+      _questions = fetchQuestions();
+    });
+
+    completer.complete();
+    return completer.future;
+  }
+}

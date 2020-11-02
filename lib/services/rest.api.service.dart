@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:http/http.dart' as http;
 import 'package:mentor_chatbot/models/question.model.dart';
+import 'package:mentor_chatbot/models/user.model.dart';
 import 'package:mentor_chatbot/widgets/question_card.dart';
 
 const apiBaseUrl = 'https://mentor-chatbot.appspot.com';
@@ -21,12 +22,20 @@ Future<List<QuestionCard>> fetchQuestions() async {
 }
 
 void updateQuestionAnswers(String id, Object update) async {
-  log(jsonEncode(update));
-  final response =
-      await http.put(apiBaseUrl + "/questions/$id", body: jsonEncode(update));
+  final response = await http.put(apiBaseUrl + "/questions/$id", body: update);
   if (response.statusCode == 200) {
     log("Update successful");
   } else {
     throw Exception('Failed to update answer');
+  }
+}
+
+Future<User> postUser() async {
+  final response = await http.post(apiBaseUrl + "/users", body: {});
+  if (response.statusCode == 200) {
+    var user = new User.fromJson(jsonDecode(response.body));
+    return user;
+  } else {
+    throw Exception('Failed create user');
   }
 }

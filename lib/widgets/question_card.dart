@@ -40,7 +40,7 @@ class QuestionCardState extends State<QuestionCard> {
                       Text(display(this.widget.question.hotness)),
                       IconButton(
                         icon: Icon(Icons.whatshot),
-                        onPressed: () {},
+                        onPressed: _handleHotnessChange,
                       ),
                     ],
                     mainAxisSize: MainAxisSize.min,
@@ -64,4 +64,6 @@ class QuestionCardState extends State<QuestionCard> {
       ),
     );
   }
+
+  void _handleHotnessChange() {}
 }

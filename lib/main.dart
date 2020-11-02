@@ -1,8 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mentor_chatbot/screens/chatbot_screen.dart';
 import 'package:mentor_chatbot/screens/community_screen.dart';
 import 'package:mentor_chatbot/screens/inbox_screen.dart';
 import 'package:mentor_chatbot/screens/settings_screen.dart';
+import 'package:mentor_chatbot/services/rest.api.service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() => runApp(MentorChatbot());
 
@@ -37,6 +40,15 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
+  String _userId = '';
+  final globalKey = GlobalKey<ScaffoldState>();
+
+  @override
+  void initState() {
+    super.initState();
+    //TODO removed until its working
+    // _fetchUserIdFromDisk();
+  }
 
   final _screenOptions = [
     ChatbotScreen(),
@@ -65,6 +77,7 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: globalKey,
       appBar: AppBar(
         title: const Text('Mentor Chatbot'),
         centerTitle: true,
@@ -122,5 +135,19 @@ class _MainPageState extends State<MainPage> {
         onTap: _onNavigationBarItemTapped,
       ),
     );
+  }
+
+  _fetchUserIdFromDisk() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String userId = prefs.getString('userId');
+
+    setState(() async {
+      if (userId == null) {
+        var user = await postUser();
+        prefs.setString('userId', user.id);
+        userId = user.id;
+      }
+      _userId = userId;
+    });
   }
 }

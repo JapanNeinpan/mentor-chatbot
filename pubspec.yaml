@@ -11,7 +11,7 @@ description: A mobile app that acts as an interface to interact with a chatbot.
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 0.0.2+2
+version: 0.0.3+3
 
 environment:
   sdk: ">=2.8.0 <3.0.0"
@@ -24,6 +24,7 @@ dependencies:
   number_display: ^2.1.4
   http: ^0.12.0+4
   flutter_socket_io: ^0.6.0
+  shared_preferences: ^0.5.12+2
 
 dev_dependencies:
   flutter_test:

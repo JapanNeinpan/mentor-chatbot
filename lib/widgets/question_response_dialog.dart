@@ -26,6 +26,7 @@ class QuestionResponseState extends State<QuestionsResponseDialog> {
           onPressed: () {
             var text = _textController.text;
             _handleSubmitted(text);
+            Navigator.of(context).pop(_textController.text.toString());
           },
         )
       ],

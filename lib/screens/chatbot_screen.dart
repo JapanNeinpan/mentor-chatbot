@@ -1,10 +1,15 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_socket_io/flutter_socket_io.dart';
 import 'package:http/http.dart' as http;
 import 'package:mentor_chatbot/widgets/chat_message.dart';
+
+const _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
+Random _rnd = Random();
+String getRandomString(int length) => String.fromCharCodes(Iterable.generate(
+    length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
 
 class ChatbotScreen extends StatefulWidget {
   @override
@@ -15,9 +20,11 @@ class ChatbotScreen extends StatefulWidget {
 
 class ChatbotScreenState extends State<ChatbotScreen>
     with TickerProviderStateMixin {
-  SocketIO socketIO;
+  // SocketIO socketIO;
   final List<ChatMessage> _messages = <ChatMessage>[];
   final TextEditingController _textController = new TextEditingController();
+
+  var tempUserId = getRandomString(15);
 
   @override
   Widget build(BuildContext context) {
@@ -103,12 +110,13 @@ class ChatbotScreenState extends State<ChatbotScreen>
   }
 
   Future<void> fetchBotResponse(String text) async {
+    text = text.trim();
     var headers = {HttpHeaders.contentTypeHeader: ContentType.json.toString()};
     final response =
         await http.post("http://mentor-chatbot.me/core/webhooks/rest/webhook",
             // TODO move this url to global config
             headers: headers,
-            body: jsonEncode({"sender": "Mobile", "message": "$text"}));
+            body: jsonEncode({"sender": "$tempUserId", "message": "$text"}));
     if (response.statusCode == 200) {
       var botResponses = jsonDecode(response.body);
       for (var botResponse in botResponses) {

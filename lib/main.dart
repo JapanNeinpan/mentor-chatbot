@@ -44,10 +44,10 @@ class _MainPageState extends State<MainPage> {
     InboxScreen(),
   ];
 
-  static const TextStyle optionStyle = TextStyle(
-    fontSize: 30,
-    fontWeight: FontWeight.bold,
-  );
+  // static const TextStyle optionStyle = TextStyle(
+  //   fontSize: 30,
+  //   fontWeight: FontWeight.bold,
+  // );
 
   void _onNavigationBarItemTapped(int index) {
     setState(() {
@@ -68,7 +68,6 @@ class _MainPageState extends State<MainPage> {
       appBar: AppBar(
         title: const Text('Mentor Chatbot'),
         centerTitle: true,
-//        leading: Icon(Icons.account_circle),
         actions: <Widget>[
           new IconButton(
             icon: new Icon(Icons.settings),
@@ -107,15 +106,15 @@ class _MainPageState extends State<MainPage> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.chat),
-            title: Text('Chatbot'),
+            label: 'Chatbot',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.group),
-            title: Text('Community'),
+            label: 'Community',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.inbox),
-            title: Text('Inbox'),
+            label: 'Inbox',
           ),
         ],
         currentIndex: _selectedIndex,

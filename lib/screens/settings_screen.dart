@@ -10,9 +10,7 @@ class SettingsScreen extends StatelessWidget {
       ),
       body: Center(
         child: RaisedButton(
-          onPressed: () {
-            // Navigate back to first route when tapped.
-          },
+          onPressed: () {},
           child: Text('Settings here later!'),
         ),
       ),

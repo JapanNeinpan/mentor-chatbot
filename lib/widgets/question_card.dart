@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mentor_chatbot/models/question.model.dart';
+import 'package:mentor_chatbot/widgets/question_response_dialog.dart';
 import 'package:number_display/number_display.dart';
 
 class QuestionCard extends StatefulWidget {
@@ -37,11 +38,24 @@ class QuestionCardState extends State<QuestionCard> {
                   Row(
                     children: <Widget>[
                       Text(display(this.widget.question.hotness)),
-                      Icon(Icons.whatshot),
+                      IconButton(
+                        icon: Icon(Icons.whatshot),
+                        onPressed: () {},
+                      ),
                     ],
                     mainAxisSize: MainAxisSize.min,
                   ),
-                  Icon(Icons.reply),
+                  IconButton(
+                    icon: Icon(Icons.reply),
+                    onPressed: () => showDialog(
+                        context: context,
+                        barrierDismissible: true,
+                        builder: (context) {
+                          return QuestionsResponseDialog(
+                            question: widget.question,
+                          );
+                        }),
+                  ),
                 ],
               ),
             ),
